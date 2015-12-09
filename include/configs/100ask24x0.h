@@ -117,6 +117,8 @@
                         /*CFG_CMD_USB    |*/ \
                         CFG_CMD_REGINFO  | \
                         CFG_CMD_DATE     | \
+			CFG_CMD_MMC	| \
+			CFG_CMD_FAT	| \
                         CFG_CMD_ELF))
 
 
@@ -233,4 +235,14 @@
 #define CFG_MAX_NAND_DEVICE     1
 #define NAND_MAX_CHIPS          1
 
+#if 1
+#define CONFIG_CMD_MMC
+#define CONFIG_MMC  1
+#define CONFIG_MMC_S3C 1 /* Enabling the MMC driver */
+#define CFG_MMC_BASE  0xff000000
+#endif
+#define CONFIG_DOS_PARTITION
+#define CONFIG_SKIP_LOWLEVEL_INIT
+#define CONFIG_SKIP_RELOCATE_UBOOT
+#define DEBUG
 #endif	/* __CONFIG_H */

@@ -669,14 +669,14 @@ typedef struct {
     S3C24X0_REG32   SDIDCNT;
     S3C24X0_REG32   SDIDSTA;
     S3C24X0_REG32   SDIFSTA;
-#ifdef __BIG_ENDIAN
-    S3C24X0_REG8    res[3];
-    S3C24X0_REG8    SDIDAT;
-#else
-    S3C24X0_REG8    SDIDAT;
-    S3C24X0_REG8    res[3];
-#endif
     S3C24X0_REG32   SDIIMSK;
+#ifdef __BIG_ENDIAN
+//    S3C24X0_REG8    res[3];
+    S3C24X0_REG32    SDIDAT;
+#else
+    S3C24X0_REG32    SDIDAT;
+//    S3C24X0_REG8    res[3];
+#endif
 } /*__attribute__((__packed__))*/ S3C2410_SDI;
 
 

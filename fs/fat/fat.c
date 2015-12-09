@@ -73,11 +73,13 @@ fat_register_device(block_dev_desc_t *dev_desc, int part_no)
 	if (!dev_desc->block_read)
 		return -1;
 	cur_dev=dev_desc;
+printf("trying to detect SD Card...2\n");
 	/* check if we have a MBR (on floppies we have only a PBR) */
 	if (dev_desc->block_read (dev_desc->dev, 0, 1, (ulong *) buffer) != 1) {
 		printf ("** Can't read from device %d **\n", dev_desc->dev);
 		return -1;
 	}
+printf("trying to detect SD Card...3\n");
 	if (buffer[DOS_PART_MAGIC_OFFSET] != 0x55 ||
 		buffer[DOS_PART_MAGIC_OFFSET + 1] != 0xaa) {
 		/* no signature found */
@@ -90,8 +92,9 @@ fat_register_device(block_dev_desc_t *dev_desc, int part_no)
 	}
 	else {
 #if (CONFIG_COMMANDS & CFG_CMD_IDE) || (CONFIG_COMMANDS & CFG_CMD_SCSI) || \
-    (CONFIG_COMMANDS & CFG_CMD_USB) || defined(CONFIG_SYSTEMACE)
+    (CONFIG_COMMANDS & CFG_CMD_USB) || defined(CONFIG_SYSTEMACE) || (CONFIG_COMMANDS & CFG_CMD_MMC) || defined(CONFIG_MMC)
 		disk_partition_t info;
+		printf("trying to detect SD Card...4\n");
 		if(!get_partition_info(dev_desc, part_no, &info)) {
 			part_offset = info.start;
 			cur_part = part_no;
@@ -100,6 +103,7 @@ fat_register_device(block_dev_desc_t *dev_desc, int part_no)
 			printf ("** Partition %d not valid on device %d **\n",part_no,dev_desc->dev);
 			return -1;
 		}
+		printf("trying to detect SD Card...5\n");
 #else
 		/* FIXME we need to determine the start block of the
 		 * partition where the DOS FS resides. This can be done
