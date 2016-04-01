@@ -244,5 +244,5 @@
 #define CONFIG_DOS_PARTITION
 #define CONFIG_SKIP_LOWLEVEL_INIT
 #define CONFIG_SKIP_RELOCATE_UBOOT
-#define DEBUG
+//#define DEBUG
 #endif	/* __CONFIG_H */
