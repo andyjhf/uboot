@@ -126,13 +126,17 @@
 #include <cmd_confdefs.h>
 
 #define CONFIG_BOOTDELAY	2
-#define CONFIG_BOOTARGS    	"noinitrd root=/dev/mtdblock3 init=/linuxrc console=ttySAC0"
+#define CONFIG_BOOTARGS    	"rootfstype=ext3 root=/dev/mmcblk0p3 console=ttySAC0,115200 rw rootwait"
 #define CONFIG_ETHADDR	    08:00:3e:26:0a:5b
 #define CONFIG_NETMASK      255.255.255.0
 #define CONFIG_IPADDR		192.168.7.17
 #define CONFIG_SERVERIP		192.168.7.11
+
 /*#define CONFIG_BOOTFILE	"elinos-lart" */
-#define CONFIG_BOOTCOMMAND	"nand read.jffs2 0x30007FC0 kernel; bootm 0x30007FC0"
+#define CONFIG_BOOTCOMMAND "run sdboot"
+#define CONFIG_EXTRA_ENV_SETTINGS \
+    "nandboot=nand read.jffs2 0x30007FC0 kernel; bootm 0x30007FC0\0"\
+    "sdboot=mmcinit;fatload mmc 0:2 0x30007fc0 uImage;bootm\0" 
 
 #if (CONFIG_COMMANDS & CFG_CMD_KGDB)
 #define CONFIG_KGDB_BAUDRATE	115200		/* speed to run kgdb serial port */
@@ -155,7 +159,7 @@
 
 #undef  CFG_CLKS_IN_HZ		/* everything, incl board info, in Hz */
 
-#define	CFG_LOAD_ADDR		0x33000000	/* default load address	*/
+#define	CFG_LOAD_ADDR		0x30007fc0	/* default load address	*/
 
 /* the PWM TImer 4 uses a counter of 15625 for 10 ms, so we need */
 /* it to wrap 100 times (total 1562500) to get 1 sec. */
@@ -242,7 +246,7 @@
 #define CFG_MMC_BASE  0xff000000
 #endif
 #define CONFIG_DOS_PARTITION
-#define CONFIG_SKIP_LOWLEVEL_INIT
-#define CONFIG_SKIP_RELOCATE_UBOOT
+//#define CONFIG_SKIP_LOWLEVEL_INIT
+//#define CONFIG_SKIP_RELOCATE_UBOOT
 //#define DEBUG
 #endif	/* __CONFIG_H */

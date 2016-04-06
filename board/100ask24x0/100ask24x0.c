@@ -65,7 +65,7 @@ int board_init (void)
     else
     {
         /* arch number of SMDK2440-Board */
-        gd->bd->bi_arch_number = 782; // MACH_TYPE_S3C2440;
+        gd->bd->bi_arch_number = 1999; // MACH_TYPE_MINI2440;
     }
 
     /* adress of boot parameters */
